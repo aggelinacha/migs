@@ -1,0 +1,66 @@
+# @package _global_
+
+dataset_name: aist_crop1080_multi_${model.gaussian.decomp_type}_R${model.gaussian.R}_${texture_name}_iter100
+
+test_interval: 1000
+
+
+dataset:
+  name: zjumocap_multi
+  root_dir: "/path/to/datasets/zju_mocap_arah"
+  # 31 subjects - crop 1080
+  # subjects: ["gJS_sBM_c01_d01_mJS1_ch10_crop1080", "gJS_sFM_c01_d02_mJS5_ch10_crop1080", "gJS_sFM_c01_d03_mJS0_ch01_crop1080", "gBR_sBM_c01_d04_mBR0_ch01_crop1080", "gBR_sBM_c02_d04_mBR1_ch06_crop1080", "gBR_sBM_c01_d05_mBR5_ch05_crop1080", "gBR_sBM_c01_d06_mBR2_ch01_crop1080", "gJB_sFM_c01_d07_mJB1_ch02_crop1080", "gJB_sFM_c01_d08_mJB4_ch12_crop1080", "gJB_sBM_c01_d09_mJB5_ch07_crop1080", "gPO_sFM_c01_d10_mPO3_ch07_crop1080", "gPO_sFM_c01_d11_mPO1_ch09_crop1080", "gPO_sFM_c01_d12_mPO2_ch17_crop1080", "gLO_sFM_c01_d13_mLO4_ch07_crop1080", "gLO_sBM_c01_d14_mLO1_ch05_crop1080", "gLO_sFM_c01_d15_mLO4_ch19_crop1080", "gLH_sFM_c01_d16_mLH0_ch01_crop1080", "gLH_sFM_c01_d17_mLH5_ch13_crop1080", "gLH_sFM_c01_d18_mLH5_ch20_crop1080", "gHO_sBM_c01_d19_mHO0_ch01_crop1080", "gHO_sFM_c01_d20_mHO0_ch08_crop1080", "gHO_sBM_c01_d21_mHO4_ch09_crop1080", "gMH_sFM_c01_d22_mMH2_ch03_crop1080", "gMH_sBM_c01_d23_mMH0_ch08_crop1080", "gMH_sFM_c01_d24_mMH5_ch20_crop1080", "gWA_sFM_c01_d25_mWA5_ch06_crop1080", "gWA_sBM_c01_d26_mWA0_ch10_crop1080", "gWA_sFM_c01_d27_mWA2_ch21_crop1080", "gKR_sBM_c01_d28_mKR0_ch10_crop1080", "gKR_sFM_c01_d29_mKR3_ch11_crop1080", "gKR_sFM_c01_d30_mKR2_ch17_crop1080"]
+  # 4 subjects - crop 1080
+  subjects: ["gBR_sBM_c01_d04_mBR0_ch01_crop1080", "gLO_sFM_c01_d15_mLO4_ch19_crop1080", "gJB_sFM_c01_d08_mJB4_ch12_crop1080", "gJB_sBM_c01_d09_mJB5_ch07_crop1080"]
+  # 9 subjects (zju + aist)
+  # subjects: ["CoreView_377", "CoreView_386", "CoreView_392", "CoreView_394", "gBR_sBM_c01_d04_mBR0_ch01_crop1080",  "gBR_sBM_c01_d06_mBR2_ch01", "gLO_sFM_c01_d15_mLO4_ch19_crop1080", "gJB_sFM_c01_d08_mJB4_ch12_crop1080", "gJB_sBM_c01_d09_mJB5_ch07_crop1080"]
+  # More basic
+  # subjects: ["gJS_sBM_c01_d01_mJS1_ch10_crop1080", "gJS_sBM_c01_d02_mJS0_ch06_crop1080", "gJS_sFM_c01_d03_mJS0_ch01_crop1080", "gBR_sBM_c01_d04_mBR0_ch01_crop1080", "gBR_sBM_c02_d04_mBR1_ch06_crop1080", "gBR_sBM_c01_d05_mBR5_ch05_crop1080", "gBR_sBM_c01_d06_mBR2_ch01_crop1080", "gJB_sFM_c01_d07_mJB1_ch02_crop1080", "gJB_sBM_c01_d08_mJB0_ch05_crop1080", "gJB_sBM_c01_d09_mJB5_ch07_crop1080", "gPO_sFM_c01_d10_mPO3_ch07_crop1080", "gPO_sFM_c01_d11_mPO1_ch09_crop1080", "gPO_sBM_c01_d12_mPO4_ch06_crop1080", "gLO_sBM_c01_d13_mLO1_ch07_crop1080", "gLO_sBM_c01_d14_mLO1_ch05_crop1080", "gLO_sBM_c01_d15_mLO2_ch08_crop1080", "gLH_sFM_c01_d16_mLH0_ch01_crop1080", "gLH_sFM_c01_d17_mLH5_ch13_crop1080", "gLH_sFM_c01_d18_mLH5_ch20_crop1080", "gHO_sBM_c01_d19_mHO0_ch01_crop1080", "gHO_sFM_c01_d20_mHO0_ch08_crop1080", "gHO_sBM_c01_d21_mHO4_ch09_crop1080", "gMH_sFM_c01_d22_mMH2_ch03_crop1080", "gMH_sBM_c01_d23_mMH0_ch08_crop1080", "gMH_sFM_c01_d24_mMH5_ch20_crop1080", "gWA_sFM_c01_d25_mWA5_ch06_crop1080", "gWA_sBM_c01_d26_mWA0_ch10_crop1080", "gWA_sFM_c01_d27_mWA2_ch21_crop1080", "gKR_sBM_c01_d28_mKR0_ch10_crop1080", "gKR_sFM_c01_d29_mKR3_ch11_crop1080", "gKR_sFM_c01_d30_mKR2_ch17_crop1080"]
+  refine: false
+  test_subject: null #"gJS_sFM_c01_d02_mJS5_ch10_crop1080" #"gBR_sFM_c01_d06_mBR4_ch20_crop3_s10"
+
+  train_views: [ '1' ]
+  val_views: ['1']
+  test_views:
+    view: ${dataset.val_views}
+    video: ['12']
+    all: []
+  predict_views: ['1']
+
+  train_frames: [ 0, 0, 1 ]
+  val_frames: [ 0, 1, 1 ]
+  test_frames:
+    view: [0, 0, 1]
+    video: [0, 0, 1]
+    all: [0, 0, 1]
+  predict_frames: [0, 0, 1]
+
+  img_hw:
+    - 540
+    - 540
+  img_HW:
+    - 1080
+    - 1080
+
+  lanczos: false
+  resolution: -1
+  white_background: true
+  data_device: cuda
+  eval: false
+
+  preload: false
+
+
+model:
+  pose_correction:
+    name: none
+  multiply: False
+  multigaussian: True
+  gaussian:
+    R: 100
+    decomp_type: CP
+  texture:
+    identity_dim: 64
+  deformer:
+    non_rigid:
+      identity_dim: 64

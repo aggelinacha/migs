@@ -816,13 +816,13 @@ class ZJUMoCapDatasetMulti(Dataset):
         image = cv2.cvtColor(cv2.imread(img_file), cv2.COLOR_BGR2RGB)
         _H, _W = image.shape[:2]
         if "CoreView" in img_file:
-            self.h, self.w = 512, 512 #1024, 1024
+            self.h, self.w = 1024, 1024  # 512, 512
         elif "crop3" in img_file:
-            self.h, self.w = 512, 512 #1024, 1024
+            self.h, self.w = 1024, 1024  # 512, 512
         elif "crop1080" in img_file:
-            self.h, self.w = 540, 540
+            self.h, self.w = 1080, 1080  # 540, 540
         else:
-            self.h, self.w = 540, 960 #1080, 1920
+            self.h, self.w = 1080, 1920  # 540, 960
         if self.refine:
             mask = cv2.imread(mask_file)
             mask = mask.sum(-1)

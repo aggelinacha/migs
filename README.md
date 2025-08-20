@@ -114,10 +114,29 @@ Results are saved under `/path/to/migs/exp/aist_crop1080_multi_CP_R100_siren_ite
 ```shell
 test_subject=gLO_sFM_c01_d15_mLO4_ch19_crop1080;
 target_poses=gBR_sBM_c01_d04_mBR0_ch01_crop1080;
-python render_multi.py mode=predict dataset=aist_crop_multi dataset.test_subject=${test_subject} dataset.predict_seq=${target_poses} texture=siren pose_correction=none model.gaussian.R=100 dataset_name=aist_crop1080_multi_CP_R100_siren_iter100 load_ckpt=/nfs/130.245.4.102/add_disk0/aggelina/results/3dgs/exp/aist_crop1080_multi_CP_R100_siren_iter100_finetune_${test_subject}-none-mlp_field-ingp-siren-default/ckpt20000.pth model.texture.identity_dim=64 model.deformer.non_rigid.identity_dim=64
+python render_multi.py mode=predict dataset=aist_crop_multi dataset.test_subject=${test_subject} dataset.predict_seq=${target_poses} texture=siren pose_correction=none model.gaussian.R=100 dataset_name=aist_crop1080_multi_CP_R100_siren_iter100_finetune_${test_subject} load_ckpt=/path/to/migs/exp/aist_crop1080_multi_CP_R100_siren_iter100_finetune_${test_subject}-none-mlp_field-ingp-siren-default/ckpt20000.pth model.texture.identity_dim=64 model.deformer.non_rigid.identity_dim=64
 ```
 
 Results are saved under `/path/to/migs/exp/aist_crop1080_multi_CP_R100_siren_iter100_finetune_${test_subject}-none-mlp_field-ingp-siren-default/predict-${test_subject}-${target_poses}/`.
+
+
+## Demo
+
+Download pre-trained models:
+
+Generic: https://drive.google.com/file/d/1mxvUoFVsF93MZWZjEUaf5GTT4yzySHb8/view?usp=drive_link
+
+Personalized (for identity gLO_sFM_c01_d15_mLO4_ch19_crop1080): https://drive.google.com/file/d/11sujHTrl-4YNmkp96SNogcRalstgRr9W/view?usp=drive_link
+
+### Animate under novel poses
+
+Assuming the personalized model is saved under a directory `/path/to/pretrained_models/`:
+
+```shell
+test_subject=gLO_sFM_c01_d15_mLO4_ch19_crop1080;
+target_poses=gJB_sBM_c01_d09_mJB5_ch07_crop1080;
+python render_multi.py mode=predict dataset=aist_crop_multi dataset.test_subject=${test_subject} dataset.predict_seq=${target_poses} texture=siren pose_correction=none model.gaussian.R=100 dataset_name=aist_crop1080_multi_CP_R100_siren_iter100_finetune_${test_subject} load_ckpt=/path/to/pretrained_models/personalized_gLO_sFM_c01_d15_mLO4_ch19_crop1080_ckpt20000.pth model.texture.identity_dim=64 model.deformer.non_rigid.identity_dim=64
+```
 
 
 ## Acknowledgements

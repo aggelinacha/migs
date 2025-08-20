@@ -380,13 +380,15 @@ class MultiGaussianModel:
         self.denom = torch.zeros((self.U3.shape[0], 1), device="cuda")
 
         feature_ratio = 20.0 if self.use_sh else 1.0
+        finetune_weight = 0.01 if training_args.finetune else 1.0
+
         l = [
             # {'params': [self._xyz], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "xyz"},
-            {'params': [self.U1_feat_dc], 'lr': training_args.feature_lr, "name": "f_dc"},
-            {'params': [self.U1_feat_rest], 'lr': training_args.feature_lr / feature_ratio, "name": "f_rest"},
-            {'params': [self.U1_opacity], 'lr': training_args.opacity_lr, "name": "opacity"},
-            {'params': [self.U1_scaling], 'lr': training_args.scaling_lr, "name": "scaling"},
-            {'params': [self.U1_rotation], 'lr': training_args.rotation_lr, "name": "rotation"}
+            {'params': [self.U1_feat_dc], 'lr': training_args.feature_lr * finetune_weight, "name": "f_dc"},
+            {'params': [self.U1_feat_rest], 'lr': training_args.feature_lr * finetune_weight / feature_ratio, "name": "f_rest"},
+            {'params': [self.U1_opacity], 'lr': training_args.opacity_lr * finetune_weight, "name": "opacity"},
+            {'params': [self.U1_scaling], 'lr': training_args.scaling_lr * finetune_weight, "name": "scaling"},
+            {'params': [self.U1_rotation], 'lr': training_args.rotation_lr * finetune_weight, "name": "rotation"}
         ]
         l += [
      #       {'params': [self.U1_feat_dc], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "f_dc"},
@@ -394,27 +396,27 @@ class MultiGaussianModel:
      #       {'params': [self.U1_opacity], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "opacity"},
      #       {'params': [self.U1_scaling], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "scaling"},
      #       {'params': [self.U1_rotation], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "rotation"},
-            {'params': [self.U1_xyz], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "U1"},
-            {'params': [self.U2], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "U2"},
-            {'params': [self.U3], 'lr': training_args.position_lr_init * self.spatial_lr_scale, "name": "U3"},
+            {'params': [self.U1_xyz], 'lr': training_args.position_lr_init * self.spatial_lr_scale * finetune_weight, "name": "U1"},
+            {'params': [self.U2], 'lr': training_args.position_lr_init * self.spatial_lr_scale * finetune_weight, "name": "U2"},
+            {'params': [self.U3], 'lr': training_args.position_lr_init * self.spatial_lr_scale * finetune_weight, "name": "U3"},
          ]
         print([(_l["lr"], _l["name"]) for _l in l])
 
         self.optimizer = torch.optim.Adam(l, lr=0.0, eps=1e-15)
 
-        finetune_weight = 1.0
-        if training_args.finetune:
-            # The following lines are used for fine-tuning (personalization) to a specific identity
-            finetune_weight = 0.0
-            for param_group in self.optimizer.param_groups:
-                if not param_group["name"] in ["U2", "f_dc", "f_rest", "opacity"]:
-                    param_group['lr'] = 0.0
-        self.U1_scheduler_args = get_expon_lr_func(lr_init=training_args.position_lr_init*self.spatial_lr_scale*finetune_weight,
-                                                   lr_final=training_args.position_lr_final*self.spatial_lr_scale*finetune_weight,
+        # finetune_weight = 1.0
+        # if training_args.finetune:
+        #     # The following lines are used for fine-tuning (personalization) to a specific identity
+        #     finetune_weight = 0.0
+        #     for param_group in self.optimizer.param_groups:
+        #         if not param_group["name"] in ["U2", "f_dc", "f_rest", "opacity"]:
+        #             param_group['lr'] = 0.0
+        self.U1_scheduler_args = get_expon_lr_func(lr_init=training_args.position_lr_init * self.spatial_lr_scale * finetune_weight,
+                                                   lr_final=training_args.position_lr_final * self.spatial_lr_scale * finetune_weight,
                                                    lr_delay_mult=training_args.position_lr_delay_mult,
                                                    max_steps=training_args.position_lr_max_steps)
-        self.U2_scheduler_args = get_expon_lr_func(lr_init=training_args.position_lr_init*self.spatial_lr_scale,
-                                                   lr_final=training_args.position_lr_final*self.spatial_lr_scale,
+        self.U2_scheduler_args = get_expon_lr_func(lr_init=training_args.position_lr_init * self.spatial_lr_scale * finetune_weight,
+                                                   lr_final=training_args.position_lr_final * self.spatial_lr_scale * finetune_weight,
                                                    lr_delay_mult=training_args.position_lr_delay_mult,
                                                    max_steps=training_args.position_lr_max_steps)
 

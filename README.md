@@ -55,7 +55,7 @@ We mostly use the [AIST++](https://google.github.io/aistplusplus_dataset/) datas
 We have uploaded pre-processed data from the AIST++ dataset [here](https://drive.google.com/drive/folders/13hcscF1p4loORDB4Odram29Sdum-WP7y?usp=drive_link). 
 Download them and put them under `/path/to/datasets/zju_mocap_arah/`.
 
-[TODO] We will provide the pre-processing script as well.
+We provide the pre-processing script under `preprocess/`. Please follow the instructions in `preprocess/README.md`.
 
 
 ### ZJU-Mocap dataset
